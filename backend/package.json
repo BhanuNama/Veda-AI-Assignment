@@ -1,6 +1,9 @@
 {
   "name": "veda-ai-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

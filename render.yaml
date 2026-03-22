@@ -1,0 +1,32 @@
+# Render Blueprint — Veda-AI backend (monorepo)
+# Docs: https://render.com/docs/blueprint-spec
+#
+# After first deploy, set secret env vars in the Render dashboard if you used sync: false,
+# or edit values below for non-secrets only.
+
+services:
+  - type: web
+    name: veda-ai-backend
+    runtime: node
+    region: singapore
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      # Render injects PORT automatically — do not set PORT here.
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      # Set these in the dashboard (Environment) with real values:
+      - key: MONGO_URI
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
