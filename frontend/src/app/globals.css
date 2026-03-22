@@ -1,0 +1,434 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Vastago Grotesk — files in /public/fonts/ (your Sudtipos .otf set) */
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Heavy.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Theme CSS Variables ─────────────────────────────────────────────────── */
+
+/* ── Light (default) — grey canvas, white floating panels ──────────────── */
+:root {
+  color-scheme: light;
+  --c-canvas:          #EAEAEE;
+  --c-text-primary:    #1A1A1A;
+  --c-text-secondary:  #6B6B6B;
+  --c-text-muted:      #9B9B9B;
+  --c-border:          #E0E0E4;
+  --c-border-strong:   #C8C8D0;
+  --c-surface:         #F2F2F2;
+  --c-card:            #FFFFFF;
+  --c-orange:          #E05A2B;
+  --c-bg-start:        #F0EEF8;
+  --c-bg-mid:          #EBF0FF;
+  --c-bg-end:          #FAF3EE;
+  --glass-bg:          rgba(255,255,255,0.92);
+  --glass-border:      rgba(0,0,0,0.06);
+  --glass-shadow:      rgba(0,0,0,0.1);
+  --glass-card-bg:     rgba(255,255,255,0.96);
+  --glass-card-border: rgba(0,0,0,0.08);
+  --glass-card-shad:   rgba(0,0,0,0.08);
+  --glass-dark-bg:     rgba(20,20,20,0.90);
+  --glass-dark-border: rgba(255,255,255,0.10);
+  --c-input-bg:        #FFFFFF;
+  --c-input-border:    #D8D8DE;
+}
+
+/* ── Dark values (shared by media-query AND class) ──────────────────────── */
+/* Applied by OS preference first, then optionally overridden by class */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --c-text-primary:    #EEEEF6;
+    --c-text-secondary:  #B4B4D0;
+    --c-text-muted:      #9696BC;
+    --c-border:          #30304A;
+    --c-border-strong:   #46466A;
+    --c-surface:         #1A1A2E;
+    --c-card:            #22223A;
+    --c-bg-start:        #08080F;
+    --c-bg-mid:          #0C0E1C;
+    --c-bg-end:          #110907;
+    --glass-bg:          rgba(28,28,52,0.88);
+    --glass-border:      rgba(255,255,255,0.10);
+    --glass-shadow:      rgba(0,0,0,0.55);
+    --glass-card-bg:     rgba(34,34,60,0.90);
+    --glass-card-border: rgba(255,255,255,0.09);
+    --glass-card-shad:   rgba(0,0,0,0.48);
+    --glass-dark-bg:     rgba(10,10,20,0.96);
+    --glass-dark-border: rgba(255,255,255,0.10);
+    --c-input-bg:        rgba(28,28,50,0.85);
+    --c-input-border:    #36365A;
+  }
+}
+
+/* ── Class-based dark — forces dark regardless of OS preference ─────────── */
+html.dark {
+  color-scheme: dark;
+  --c-text-primary:    #EEEEF6;
+  --c-text-secondary:  #B4B4D0;
+  --c-text-muted:      #9696BC;
+  --c-border:          #30304A;
+  --c-border-strong:   #46466A;
+  --c-surface:         #1A1A2E;
+  --c-card:            #22223A;
+  --c-bg-start:        #08080F;
+  --c-bg-mid:          #0C0E1C;
+  --c-bg-end:          #110907;
+  --glass-bg:          rgba(28,28,52,0.88);
+  --glass-border:      rgba(255,255,255,0.10);
+  --glass-shadow:      rgba(0,0,0,0.55);
+  --glass-card-bg:     rgba(34,34,60,0.90);
+  --glass-card-border: rgba(255,255,255,0.09);
+  --glass-card-shad:   rgba(0,0,0,0.48);
+  --glass-dark-bg:     rgba(10,10,20,0.96);
+  --glass-dark-border: rgba(255,255,255,0.10);
+  --c-input-bg:        rgba(28,28,50,0.85);
+  --c-input-border:    #36365A;
+}
+
+/* ── Class-based light — forces light even if OS prefers dark ───────────── */
+html.light {
+  color-scheme: light;
+  --c-canvas:          #EAEAEE;
+  --c-text-primary:    #1A1A1A;
+  --c-text-secondary:  #6B6B6B;
+  --c-text-muted:      #9B9B9B;
+  --c-border:          #E0E0E4;
+  --c-border-strong:   #C8C8D0;
+  --c-surface:         #F2F2F2;
+  --c-card:            #FFFFFF;
+  --c-bg-start:        #F0EEF8;
+  --c-bg-mid:          #EBF0FF;
+  --c-bg-end:          #FAF3EE;
+  --glass-bg:          rgba(255,255,255,0.92);
+  --glass-border:      rgba(0,0,0,0.06);
+  --glass-shadow:      rgba(0,0,0,0.1);
+  --glass-card-bg:     rgba(255,255,255,0.96);
+  --glass-card-border: rgba(0,0,0,0.08);
+  --glass-card-shad:   rgba(0,0,0,0.08);
+  --glass-dark-bg:     rgba(20,20,20,0.90);
+  --glass-dark-border: rgba(255,255,255,0.10);
+  --c-input-bg:        #FFFFFF;
+  --c-input-border:    #D8D8DE;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  scroll-behavior: smooth;
+  min-height: 100%;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Vastago Grotesk', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* quoted name matches @font-face */
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--c-text-primary);
+  /* Light: minimal grey canvas (see --c-canvas) */
+  background-color: var(--c-canvas);
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html.dark body {
+  background: linear-gradient(145deg, var(--c-bg-start) 0%, var(--c-bg-mid) 50%, var(--c-bg-end) 100%);
+  background-attachment: fixed;
+}
+
+html.light body {
+  background-color: var(--c-canvas);
+  background-image: none;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--c-border-strong);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--c-text-muted); }
+
+/* ── Remove number spin arrows ──────────────────────────────────────────── */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }
+
+/* ── Force correct colours on date/time inputs ──────────────────────────── */
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'] {
+  color-scheme: inherit;
+}
+
+/* ── Glass classes — auto-switch via CSS vars ───────────────────────────── */
+.glass-light {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--glass-border);
+}
+
+/* Sidebar / topbar / mobile header */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 48px var(--glass-shadow),
+              0 1px 0 rgba(255,255,255,0.06) inset;
+}
+
+/* Top bar / light panels — float from shadow only (no stroke) */
+html:not(.dark) .figma-panel,
+html.light .figma-panel {
+  background: #FFFFFF;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow:
+    0 14px 44px rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .figma-panel {
+  /* keep glass on dark */
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 48px var(--glass-shadow);
+}
+
+/* Desktop sidebar — solid white card, elevation from shadow only */
+html:not(.dark) aside .sidebar-floating,
+html.light aside .sidebar-floating {
+  background: #FFFFFF;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.12),
+    0 10px 28px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+html.dark aside .sidebar-floating {
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 48px var(--glass-shadow);
+}
+
+/* Main content column — same grey canvas as body */
+.figma-main-canvas {
+  background-color: var(--c-canvas);
+}
+
+html.dark .figma-main-canvas {
+  background-color: transparent;
+}
+
+/* Bottom nav */
+.glass-dark {
+  background: var(--glass-dark-bg);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--glass-dark-border);
+}
+
+/* Floating glass card — form, question paper, premium surfaces */
+.glass-card,
+.glass-floating {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: 0 8px 40px var(--glass-card-shad),
+              0 1px 0 rgba(255,255,255,0.08) inset,
+              0 -1px 0 rgba(0,0,0,0.02) inset;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Question paper / answer key — floating glass */
+.glass-paper {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: 0 12px 48px var(--glass-card-shad),
+              0 1px 0 rgba(255,255,255,0.08) inset;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* Inputs & textareas & selects — floating glass */
+.glass-input {
+  background: var(--c-input-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--c-input-border);
+  color: var(--c-text-primary);
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset;
+}
+.glass-input:hover { border-color: var(--c-border-strong); }
+.glass-input:focus {
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 2px rgba(224,90,43,0.15);
+}
+.glass-input::placeholder { color: var(--c-text-muted); opacity: 1; }
+
+/* Select option colours in dark */
+.glass-input option {
+  background: var(--c-card);
+  color: var(--c-text-primary);
+}
+
+/* Row card (QuestionTypeRow) — floating glass */
+.glass-row {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: 0 4px 20px var(--glass-card-shad),
+              0 1px 0 rgba(255,255,255,0.06) inset;
+}
+
+/* ── GPU fix for fixed mobile elements ──────────────────────────────────── */
+.fixed-gpu {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  will-change: transform;
+}
+
+/* ── Safe area ───────────────────────────────────────────────────────────── */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ── Theme-aware hover helpers ───────────────────────────────────────────── */
+.hover-overlay:hover { background-color: rgba(0,0,0,0.04); }
+
+@media (prefers-color-scheme: dark) {
+  .hover-overlay:hover { background-color: rgba(255,255,255,0.06); }
+}
+html.dark  .hover-overlay:hover { background-color: rgba(255,255,255,0.06); }
+html.light .hover-overlay:hover { background-color: rgba(0,0,0,0.04); }
+
+/* ── Dark-mode overrides for stale Tailwind utility cache ───────────────── *
+ * Tailwind bakes static RGB values at build time.  These rules use higher   *
+ * specificity (html.dark + class = 0-2-1 > Tailwind class = 0-1-0) to      *
+ * override them with the correct CSS-variable-driven values at runtime.      */
+
+/* ·· Text colour classes ·· */
+html.dark .text-text-primary,
+html.dark [class*="text-text-primary"] { color: #EEEEF6; }
+
+html.dark .text-text-secondary,
+html.dark [class*="text-text-secondary"] { color: #B4B4D0; }
+
+html.dark .text-text-muted,
+html.dark [class*="text-text-muted"] { color: #9696BC; }
+
+/* ·· Background colour classes ·· */
+html.dark .bg-card   { background-color: #22223A; }
+html.dark .bg-surface { background-color: #1A1A2E; }
+html.dark .bg-border-default { background-color: #30304A; }
+
+/* ·· Border colour classes ·· */
+html.dark .border-border-default { border-color: #30304A; }
+html.dark .border-border-strong  { border-color: #46466A; }
+
+/* ·· Also cover all text inside body so bare text inherits correctly ·· */
+html.dark body { color: #EEEEF6; }
+
+/* ·· Media-query fallback (same cascade position beats same-specificity     *
+ *    Tailwind rules because these come later in the file) ·· */
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .text-text-primary   { color: #EEEEF6; }
+  html:not(.light) .text-text-secondary { color: #B4B4D0; }
+  html:not(.light) .text-text-muted     { color: #9696BC; }
+  html:not(.light) .bg-card             { background-color: #22223A; }
+  html:not(.light) .bg-surface          { background-color: #1A1A2E; }
+  html:not(.light) body                 { color: #EEEEF6; }
+}
