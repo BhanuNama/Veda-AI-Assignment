@@ -2,13 +2,26 @@
  * Extracts plain text from uploaded files.
  * Supported: PDF, TXT, plain text buffers.
  * Images (JPEG/PNG/WebP) are parsed via OCR (best-effort).
+ *
+ * pdf-parse v2+ uses class PDFParse + getText() — the old default export
+ * `require('pdf-parse')(buffer)` is not a function (breaks on Render / Node prod).
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdfParse = require('pdf-parse') as (buf: Buffer) => Promise<{ text: string }>;
+import { PDFParse } from 'pdf-parse';
 
 const MAX_CHARS = 8_000; // keep prompt size reasonable
 const OCR_TIMEOUT_MS = 18_000;
+
+async function extractPdfText(buffer: Buffer): Promise<string | null> {
+  const parser = new PDFParse({ data: new Uint8Array(buffer) });
+  try {
+    const result = await parser.getText();
+    const text = result.text?.trim();
+    return text && text.length > 0 ? text : null;
+  } finally {
+    await parser.destroy().catch(() => {});
+  }
+}
 
 export async function extractTextFromBuffer(
   buffer: Buffer,
@@ -18,10 +31,9 @@ export async function extractTextFromBuffer(
   try {
     // ── PDF ──────────────────────────────────────────────────────────────────
     if (mimetype === 'application/pdf' || originalname.toLowerCase().endsWith('.pdf')) {
-      const data = await pdfParse(buffer);
-      const text = data.text?.trim();
-      if (!text) return null;
-      return truncate(text);
+      const raw = await extractPdfText(buffer);
+      if (!raw) return null;
+      return truncate(raw);
     }
 
     // ── Plain text / markdown / doc-as-text ─────────────────────────────────
