@@ -9,6 +9,10 @@ import { ToastContainer } from '@/components/ui/Toast';
 export const metadata: Metadata = {
   title: 'VedaAI – AI Assessment Creator',
   description: 'Create AI-powered question papers for your students',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

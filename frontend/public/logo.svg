@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" fill="none" role="img" aria-label="VedaAI">
+  <defs>
+    <linearGradient id="veda-logo-grad" x1="4" y1="48" x2="48" y2="4" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0605" />
+      <stop offset="0.28" stop-color="#3D1A0E" />
+      <stop offset="0.55" stop-color="#A84A1E" />
+      <stop offset="0.82" stop-color="#E87828" />
+      <stop offset="1" stop-color="#FFC98A" />
+    </linearGradient>
+    <linearGradient id="veda-logo-v-shade" x1="14" y1="12" x2="24" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A0A0A0" stop-opacity="0.45" />
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.2" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="52" height="52" rx="14" fill="url(#veda-logo-grad)" />
+  <path
+    fill="#FFFFFF"
+    d="M15.25 11.75h5.15L26 31.85l5.6-20.1h5.15l-9.4 25.5h-2.7z"
+  />
+  <path fill="url(#veda-logo-v-shade)" d="M15.25 11.75h5.15l4.95 20.45-.7 5.05z" />
+</svg>
