@@ -1,6 +1,6 @@
 # VedaAI — AI Assessment Creator
 
-Full-stack **AI Assessment Creator** for teachers: design assignments, generate **structured** question papers with an LLM (no raw markdown dumps), track jobs in real time, review papers with answer keys, and export **server-side PDFs**. The UI follows the hiring brief’s **Figma** direction and adds product-level polish, extra screens, and production-oriented deployment.
+Full-stack **AI Assessment Creator** for teachers: design assignments, generate **structured** question papers with an LLM (no raw markdown dumps), track jobs in real time, review papers with answer keys, and export **server-side PDFs** in **three download types**: **question paper only**, **answer key only**, or **paper + key in one file** (`variant=paper` \| `key` \| `both`). The UI follows the hiring brief’s **Figma** direction and adds product-level polish, extra screens, and production-oriented deployment.
 
 **Figma (reference):** [VedaAI — Hiring Assignment](https://www.figma.com/design/nB2HMm1BhTpmHcHrmEslGB/VedaAI---Hiring-Assignment?node-id=0-1&t=UjYQLgEek4u99AA4-1)
 
@@ -40,7 +40,7 @@ Full-stack **AI Assessment Creator** for teachers: design assignments, generate 
 | **Express + TS, MongoDB, Redis, BullMQ** | `backend/src` — Mongoose models, `queueService`, `generationWorker`, job processor. |
 | **Flow: API → queue → worker → store → notify** | `routes/assignments.ts` → BullMQ → `jobService.ts` → Mongo + Redis cache → `broadcast` WS. |
 | **Output page: student lines, sections, hierarchy** | `QuestionPaper.tsx`, `AnswerKey.tsx` — Name / Roll / Class & Section lines; responsive exam-style layout. |
-| **PDF download (bonus)** | **Server:** PDFKit — `paper` \| `key` \| `both`. **Client:** `usePDF` (html2canvas + jsPDF) available for capture-by-DOM if needed. |
+| **PDF download (bonus)** | **Three PDF exports** (same endpoint, `variant` query): **`paper`** — students’ question paper only; **`key`** — answer key only; **`both`** — combined in a single PDF. **Server:** PDFKit. **Client:** `ActionBar` download menu; optional `usePDF` (html2canvas + jsPDF) for DOM capture if needed. |
 | **Regenerate (bonus)** | Clears Redis paper cache, resets assignment, re-queues with `variationSeed` + `avoidQuestions` from prior paper. |
 | **Difficulty visuals (bonus)** | `Badge.tsx` / `DifficultyBadge`. |
 
@@ -177,7 +177,7 @@ Base path: **`/api/assignments`** (JSON body unless multipart).
 | `GET` | `/` | List assignments (**excludes** `paper` field for payload size). |
 | `GET` | `/:id` | Single assignment; merges **paper** from Redis cache when available. |
 | `GET` | `/:id/status` | Lightweight status poll (`status`, `jobId`, `lastError`) — WS fallback. |
-| `GET` | `/:id/pdf?variant=paper\|key\|both` | Stream **PDFKit** PDF. |
+| `GET` | `/:id/pdf?variant=paper\|key\|both` | Stream **PDFKit** PDF — **three types**: `paper` (QP only), `key` (answer key only), `both` (one file). |
 | `POST` | `/` | Create assignment + enqueue job (`formData` JSON or field + optional `file`). |
 | `POST` | `/:id/regenerate` | Clear cache, reset paper, re-queue with variation + avoid-list. |
 | `DELETE` | `/:id` | Delete document + Redis cache key. |
@@ -250,7 +250,7 @@ Base path: **`/api/assignments`** (JSON body unless multipart).
 | `/` | Dashboard stats + recent assignments. |
 | `/assignments` | Filterable/sortable grid + FAB. |
 | `/assignments/create` | Full create form + generation redirect. |
-| `/assignments/[id]` | Generating / failed / completed states; paper + key; action bar; report modal. |
+| `/assignments/[id]` | Generating / failed / completed states; paper + key; **action bar with three PDF downloads** (paper / key / both); report modal. |
 | `/calendar` | Due + created calendar + lists. |
 | `/groups`, `/toolkit`, `/library` | Shell / placeholder for future modules. |
 
